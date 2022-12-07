@@ -209,6 +209,7 @@ registration
   end;
 end;
 
+::: EQREL_1:45 is a corollary from this
 registration
   cluster non finitely-generated for divisible Z_Module;
   correctness
@@ -317,6 +318,7 @@ theorem LMLT2:
     hence thesis;
   end;
 
+::: into EQREL ?
 registration
   cluster non trivial for divisible Z_Module;
   correctness
@@ -679,6 +681,7 @@ registration
   correctness by ThFGND;
 end;
 
+::: into PRE_POLY ?
 registration
   let V be non trivial non divisible Z_Module;
   cluster non divisible for non zero Vector of V;
@@ -704,6 +707,7 @@ registration
   end;
 end;
 
+::: into PRE_POLY ?
 registration
   let V be non trivial finite-rank free Z_Module;
   cluster rank V -> non zero;
