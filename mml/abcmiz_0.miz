@@ -357,6 +357,7 @@ A3: non-a = a;
   hence contradiction by A2;
 end;
 
+::: EQREL_1:45 is a corollary from this
 registration
   cluster non void involutive without_fixpoints for strict AdjectiveStr;
   existence
@@ -370,6 +371,7 @@ A1: n.y = x by FUNCT_4:63;
   end;
 end;
 
+::: into EQREL ?
 registration
   let A be non void AdjectiveStr;
   cluster the adjectives of A -> non empty;
@@ -846,6 +848,7 @@ A3: ex t2 being type of T st x = t2 & non-a in adjs t2 by A2,Def12;
   hence thesis by A3,Def9;
 end;
 
+::: into PRE_POLY ?
 registration
   let T be adj-structured reflexive transitive antisymmetric with_suprema
   TA-structure;
@@ -876,6 +879,7 @@ A6: a in adjs y by A5,Th13;
   end;
 end;
 
+::: into PRE_POLY ?
 registration
   let T be adj-structured reflexive transitive antisymmetric with_suprema
   TA-structure;
