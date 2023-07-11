@@ -1,5 +1,6 @@
 import json
 from natsort import humansorted
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from .models import Explanation
@@ -23,6 +24,9 @@ class CreateView(generic.CreateView):
 class ExplanationTitleView(View):
     def get(self, request):
         explanations = humansorted(list(Explanation.objects.all()), key=lambda a: a.title)
+        # print(settings.BASE_DIR)
+        # print(settings.EXPLANATION_REPO)
+        # print(settings.EMWIKI_CONTENTS_REPO)
         return JsonResponse({'index': [
             dict(id=explanation.id, title=explanation.title) for explanation in explanations
         ]})
