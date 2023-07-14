@@ -21,20 +21,20 @@ class Explanation(models.Model):
         self.updated_at = timezone.now()
         return super().save(*args, **kwargs)
 
-    @property
-    def get_modelfile_path(self):
-        return os.path.join(self.explanation_dir, 'models.py')
+    # @property
+    # def get_modelfile_path(self):
+    #     return os.path.join(self.explanation_dir)
     
     def commit_explanation_creates(self):
         commit_message = f'Create {self.text}\n {self.author}\n'
-        settings.EXPLANATION_REPO.git.add(self.get_modelfile_path())
+        settings.EXPLANATION_REPO.git.add('models.py')
         settings.EXPLANATION_REPO.git.commit('--allow-empty', '-m', commit_message)
         # subprocess.call(['git', 'add', 'explanation/models.py'])
         # subprocess.call(['git', 'commit', '-m', commit_message])
 
     def commit_explanation_changes(self):
         commit_message = f'Update {self.text}\n {self.author}\n'
-        settings.EXPLANATION_REPO.git.add(self.get_modelfile_path())
+        settings.EXPLANATION_REPO.git.add('models.py')
         settings.EXPLANATION_REPO.git.commit('--allow-empty', '-m', commit_message)
         # subprocess.call(['git', 'add', 'explanation/models.py'])
         # subprocess.call(['git', 'commit', '-m', commit_message])
