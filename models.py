@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.conf import settings
 # import subprocess
@@ -10,6 +12,7 @@ class Explanation(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(null=True, blank=True)
+    explanation_dir = settings.EXPLANATION_DIR
 
     def __str__(self):
         return self.title, self.author, self.created_at, self.updated_at
@@ -18,6 +21,10 @@ class Explanation(models.Model):
         self.updated_at = timezone.now()
         return super().save(*args, **kwargs)
 
+    # @property
+    # def get_modelfile_path(self):
+    #     return os.path.join(self.explanation_dir)
+    
     def commit_explanation_creates(self):
         commit_message = f'Create {self.text}\n {self.author}\n'
         settings.EXPLANATION_REPO.git.add('models.py')
