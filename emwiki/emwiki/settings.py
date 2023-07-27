@@ -181,7 +181,7 @@ TEST_OUTPUT_PRODUCT_SYMBOLHTML_DIR = os.path.join(
     TEST_OUTPUTS_DIR, 'product_symbol_html')
 TEST_RAW_MML_MML_DIR = os.path.join(TEST_DATA_DIR, 'mml')
 TEST_MML_MML_DIR = os.path.join(TEST_DATA_DIR, 'mml_commented')
-TEST_EXPLANATION_DIR = os.path.join(TEST_DATA_DIR, 'explanation_edited')
+# TEST_EXPLANATION_DIR = os.path.join(TEST_DATA_DIR, 'explanation_edited')
 TEST_MML_HTML_DIR = os.path.join(TEST_DATA_DIR, 'raw_htmlized_mml')
 TEST_PRODUCT_HTMLIZEDMML_DIR = os.path.join(
     TEST_DATA_DIR, 'product_htmlized_mml')
@@ -200,5 +200,5 @@ EMWIKI_CONTENTS_REPO.git.checkout("mml_commented")
 EMWIKI_CONTENTS_MML_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'mml')
 
 EMWIKI_CONTENTS_EXPLANATION_REPO = Repo(os.path.join(BASE_DIR, 'emwiki-contents'))
-EMWIKI_CONTENTS_EXPLANATION_REPO.git.checkout('explanation_edited')
+EMWIKI_CONTENTS_EXPLANATION_REPO.git.checkout('mml_commented')
 EMWIKI_CONTENTS_EXPLANATON_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'explanation')
