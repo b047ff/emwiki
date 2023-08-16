@@ -196,9 +196,9 @@ mml_config = configparser.ConfigParser()
 mml_config.read(MML_INI_PATH)
 MIZAR_VERSION = mml_config["MML"]["MMLVersion"]
 EMWIKI_CONTENTS_REPO = Repo(os.path.join(BASE_DIR, 'emwiki-contents'))
-EMWIKI_CONTENTS_REPO.git.checkout("mml_commented")
+EMWIKI_CONTENTS_REPO.git.checkout("mml")
 EMWIKI_CONTENTS_MML_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'mml')
 
-EMWIKI_CONTENTS_EXPLANATION_REPO = Repo(os.path.join(BASE_DIR, 'emwiki-contents'))
-EMWIKI_CONTENTS_EXPLANATION_REPO.git.checkout('mml')
-EMWIKI_CONTENTS_EXPLANATON_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'explanation')
+# EMWIKI_CONTENTS_EXPLANATION_REPO = Repo(os.path.join(BASE_DIR, 'emwiki-contents'))
+# EMWIKI_CONTENTS_EXPLANATION_REPO.git.checkout('mml')
+# EMWIKI_CONTENTS_EXPLANATON_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'explanation')
