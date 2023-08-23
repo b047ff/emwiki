@@ -200,5 +200,5 @@ EMWIKI_CONTENTS_REPO.git.checkout("mml_commented")
 EMWIKI_CONTENTS_MML_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'mml')
 
 EMWIKI_CONTENTS_EXPLANATION_REPO = Repo(os.path.join(BASE_DIR, 'emwiki-contents'))
-EMWIKI_CONTENTS_EXPLANATION_REPO.git.checkout('-b mml')
+EMWIKI_CONTENTS_EXPLANATION_REPO.git.checkout('-b explanation-edited')
 EMWIKI_CONTENTS_EXPLANATON_DIR = os.path.join(BASE_DIR, 'emwiki-contents', 'explanation')
