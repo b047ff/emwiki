@@ -27,7 +27,7 @@ class Explanation(models.Model):
     #     file_path = os.path.join(directory, file_name)
     #     with open(file_path, 'w') as file:
     #         file.write(text)
-   
+
     def commit_explanation_creates(self):
         commit_message = f'Create {self.text}\n {self.author}\n'
         settings.EMWIKI_CONTENTS_EXPLANATION_REPO.git.add(self.get_explanationfile_path())
