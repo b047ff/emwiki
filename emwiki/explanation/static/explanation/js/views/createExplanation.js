@@ -67,24 +67,23 @@ export const createExplanation = {
       Articlefield.focus(); // inputにフォーカスを当てる
 
       document.getElementById('Article-field')
-    .addEventListener('keyup', function (event) {
-        if (event.key === 'Enter') { // Enterキーが押されたら
-          const inputField = document.getElementById('input-field');
-          const articleName = event.target.value.replace(/\r?\n$/, ''); //入力された値をarticleNameに代入
-          const articleurl = "/article/htmls";
-          ExplanationService.getArticle(
-            context['article_html_base_uri'],
-            articleName,
-          ).then((articleHtml) => {
-            this.articleHtml = articleHtml;
+          .addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') { // Enterキーが押されたら
+              const inputField = document.getElementById('input-field');
+              const articleName = event.target.value.replace(/\r?\n$/, ''); // 入力された値をarticleNameに代入
+              ExplanationService.getArticle(
+                context['article_html_base_uri'],
+                articleName,
+              ).then((articleHtml) => {
+                articleHtml = articleHtml;
+              });
+              // inputField.innerHTML = this.articleHtml;
+              console.log(articleHtml);
+              inputField.value = `${inputField.value}${this.articleHtml}`;
+              event.target.style.display = 'none'; // inputを隠す
+              event.target.value = ''; // 入力欄をリセットする
+            }
           });
-          // inputField.innerHTML = this.articleHtml;
-          console.log(this.articleHtml);
-          inputField.value = `${inputField.value}${this.articleHtml}`;
-          event.target.style.display = 'none'; // inputを隠す
-          event.target.value = ''; // 入力欄をリセットする
-        }
-      });
     },
   },
   template:
@@ -100,7 +99,8 @@ export const createExplanation = {
             </p>
             <p  id='notes'>'! @$%#^&*()=+\[\]{};':"\\|,<>\/?'</p>
             <v-btn class="ma-2" @click="insertArticle()">insert</v-btn>
-            <textarea id="Article-field" class='display-1' style="display:none" spellcheck="false">
+            <textarea id="Article-field" class='display-1' 
+            style="display:none" spellcheck="false">
             </textarea>
             <div class="columns">
                 <div class="column is-6" id="input-field-wrapper">
