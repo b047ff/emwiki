@@ -70,16 +70,16 @@ export const createExplanation = {
           .addEventListener('keyup', function(event) {
             if (event.key === 'Enter') { // Enterキーが押されたら
               const inputField = document.getElementById('input-field');
-              const articleName = event.target.value.replace(/\r?\n$/, ''); // 入力された値をarticleNameに代入
+              const articleName = event.target.value.replace(/\r?\n$/, '');
               ExplanationService.getArticle(
-                context['article_html_base_uri'],
-                articleName,
+                  context['article_html_base_uri'],
+                  articleName,
               ).then((articleHtml) => {
                 articleHtml = articleHtml;
               });
               // inputField.innerHTML = this.articleHtml;
               console.log(articleHtml);
-              inputField.value = `${inputField.value}${this.articleHtml}`;
+              inputField.value = `${inputField.value}${articleHtml}`;
               event.target.style.display = 'none'; // inputを隠す
               event.target.value = ''; // 入力欄をリセットする
             }
