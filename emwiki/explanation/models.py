@@ -22,12 +22,12 @@ class Explanation(models.Model):
 
     def get_explanationfile_path(self):
         return os.path.join(self.explanation_dir, f'{self.title}.txt')
-    
+
     # def create_text_file(directory, file_name, text):
     #     file_path = os.path.join(directory, file_name)
     #     with open(file_path, 'w') as file:
     #         file.write(text)
-        
+   
     def commit_explanation_creates(self):
         commit_message = f'Create {self.text}\n {self.author}\n'
         settings.EMWIKI_CONTENTS_EXPLANATION_REPO.git.add(self.get_explanationfile_path())
@@ -37,4 +37,3 @@ class Explanation(models.Model):
         commit_message = f'Update {self.text}\n {self.author}\n'
         settings.EMWIKI_CONTENTS_EXPLANATION_REPO.git.add(self.get_explanationfile_path())
         settings.EMWIKI_CONTENTS_EXPLANATION_REPO.index.commit(commit_message)
-

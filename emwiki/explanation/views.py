@@ -135,5 +135,5 @@ class DeleteView(View):
             print(f"ファイル {file_path} が見つかりませんでした。")
         except Exception as e:
             print(f"ファイル {file_path} の削除中にエラーが発生しました: {e}")
-            
+
         # return render(request, 'explanation/index.html')

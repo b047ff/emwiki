@@ -1,5 +1,7 @@
 import {onTextAreaKeyDown} from '../models/editor.js';
 import {escape, partialDescape} from '../models/markdown-mathjax.js';
+import {ExplanationService} from '../services/explanation-service.js';
+
 export const createExplanation = {
   data() {
     return {
@@ -59,30 +61,31 @@ export const createExplanation = {
         this.title = '';
       }
     },
-    // insertArticle() {
-    //   const Articlefield = document.getElementById('Article-field');
-    //   Articlefield.style.display = 'block'; // inputを表示する
-    //   Articlefield.focus(); // inputにフォーカスを当てる
+    insertArticle() {
+      const Articlefield = document.getElementById('Article-field');
+      Articlefield.style.display = 'block'; // inputを表示する
+      Articlefield.focus(); // inputにフォーカスを当てる
 
-    //   document.getElementById('Article-field')
-    // .addEventListener('keyup', function (event) {
-    //     if (event.key === 'Enter') { // Enterキーが押されたら
-    //       const inputField = document.getElementById('input-field');
-    //       const articleName = event.target.value; //入力された値をarticleNameに代入
-    //       // const articleurl = "/article/htmls";
-    //       ExplanationService.getArticle(
-    //         context['article_html_base_uri'],
-    //         articleName,
-    //       ).then((articleHtml) => {
-    //         this.articleHtml = articleHtml;
-    //         console.log(this.articleHtml);
-    //       });
-    //       inputField.value = `${inputField.value}${articleName}`;
-    //       event.target.style.display = 'none'; // inputを隠す
-    //       event.target.value = ''; // 入力欄をリセットする
-    //     }
-    //   });
-    // },
+      document.getElementById('Article-field')
+    .addEventListener('keyup', function (event) {
+        if (event.key === 'Enter') { // Enterキーが押されたら
+          const inputField = document.getElementById('input-field');
+          const articleName = event.target.value.replace(/\r?\n$/, ''); //入力された値をarticleNameに代入
+          const articleurl = "/article/htmls";
+          ExplanationService.getArticle(
+            context['article_html_base_uri'],
+            articleName,
+          ).then((articleHtml) => {
+            this.articleHtml = articleHtml;
+          });
+          // inputField.innerHTML = this.articleHtml;
+          console.log(this.articleHtml);
+          inputField.value = `${inputField.value}${this.articleHtml}`;
+          event.target.style.display = 'none'; // inputを隠す
+          event.target.value = ''; // 入力欄をリセットする
+        }
+      });
+    },
   },
   template:
     `<div class="container" id="app">
@@ -96,6 +99,9 @@ export const createExplanation = {
               The following characters cannot be used in the title.
             </p>
             <p  id='notes'>'! @$%#^&*()=+\[\]{};':"\\|,<>\/?'</p>
+            <v-btn class="ma-2" @click="insertArticle()">insert</v-btn>
+            <textarea id="Article-field" class='display-1' style="display:none" spellcheck="false">
+            </textarea>
             <div class="columns">
                 <div class="column is-6" id="input-field-wrapper">
                     <h2><i class="fas fa-edit"></i> Input</h2>
