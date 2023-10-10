@@ -1,6 +1,5 @@
 import {onTextAreaKeyDown} from '../models/editor.js';
 import {escape, partialDescape} from '../models/markdown-mathjax.js';
-import {ExplanationService} from '../services/explanation-service.js';
 
 export const createExplanation = {
   data() {
@@ -57,34 +56,34 @@ export const createExplanation = {
       const invalidChars = /[!@$%#^&*()=+\[\]{};':"\\|,<>\/?]/g;
       if (this.title.match(invalidChars)) {
         const invalidChar = this.title.match(invalidChars);
-        alert(invalidChar + 'cannot be used in titles');
+        alert(invalidChar + ' cannot be used in titles');
         this.title = '';
       }
     },
-    insertArticle() {
-      const Articlefield = document.getElementById('Article-field');
-      Articlefield.style.display = 'block'; // inputを表示する
-      Articlefield.focus(); // inputにフォーカスを当てる
+    // insertArticle() {
+    //   const Articlefield = document.getElementById('Article-field');
+    //   Articlefield.style.display = 'block'; // inputを表示する
+    //   Articlefield.focus(); // inputにフォーカスを当てる
 
-      document.getElementById('Article-field')
-          .addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') { // Enterキーが押されたら
-              const inputField = document.getElementById('input-field');
-              const articleName = event.target.value.replace(/\r?\n$/, '');
-              ExplanationService.getArticle(
-                  context['article_html_base_uri'],
-                  articleName,
-              ).then((articleHtml) => {
-                articleHtml = articleHtml;
-              });
-              // inputField.innerHTML = this.articleHtml;
-              console.log(articleHtml);
-              inputField.value = `${inputField.value}${articleHtml}`;
-              event.target.style.display = 'none'; // inputを隠す
-              event.target.value = ''; // 入力欄をリセットする
-            }
-          });
-    },
+    //   document.getElementById('Article-field')
+    //       .addEventListener('keyup', function(event) {
+    //         if (event.key === 'Enter') { // Enterキーが押されたら
+    //           const inputField = document.getElementById('input-field');
+    //           const articleName = event.target.value.replace(/\r?\n$/, '');
+    //           ExplanationService.getArticle(
+    //               context['article_html_base_uri'],
+    //               articleName,
+    //           ).then((articleHtml) => {
+    //             articleHtml = articleHtml;
+    //           });
+    //           // inputField.innerHTML = this.articleHtml;
+    //           console.log(articleHtml);
+    //           inputField.value = `${inputField.value}${articleHtml}`;
+    //           event.target.style.display = 'none'; // inputを隠す
+    //           event.target.value = ''; // 入力欄をリセットする
+    //         }
+    //       });
+    // },
   },
   template:
     `<div class="container" id="app">

@@ -5,8 +5,7 @@
  *
  */
 export function onTextAreaKeyDown(event, object) {
-  // キーコードと入力された文字列
-  const keyCode = event.keyCode;
+  // 入力された文字列
   const keyVal = event.key;
 
   // カーソル位置
@@ -17,7 +16,7 @@ export function onTextAreaKeyDown(event, object) {
       object.value.length);
 
   // タブキーの場合
-  if (keyCode === 9) {
+  if (keyVal === 'Tab') {
     event.preventDefault();// 元の挙動を止める
     // textareaの値をカーソル左の文字列 + タブスペース + カーソル右の文字列にする
     object.value = leftString + '\t' + rightString;
