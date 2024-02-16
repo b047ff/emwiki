@@ -1,5 +1,9 @@
+import os
+
 import json
 from natsort import humansorted
+
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from .models import Explanation
@@ -66,8 +70,12 @@ class ExplanationView(View):
             errors = e.messages[0]
             return JsonResponse({'errors': errors}, status=400)
 
-        createdExplanatoin = Explanation.objects.create(title=posted_title, text=posted_text, author=user)
-        createdExplanatoin.commit_explanation_creates()
+        createdExplanation = Explanation.objects.create(title=posted_title, text=posted_text, author=user)
+        explanation_dir = settings.EMWIKI_CONTENTS_EXPLANATON_DIR
+        file_path = os.path.join(explanation_dir, f"{posted_title}.txt")
+        with open(file_path, 'w') as file:
+            file.write(posted_text)
+        createdExplanation.commit_explanation_creates()
 
         return redirect('explanation:index')
 
@@ -98,6 +106,10 @@ class UpdateView(View):
         updatedExplanation.text = post.get('text', None)
         updatedExplanation.author = update_author
         updatedExplanation.save()
+        explanation_dir = settings.EMWIKI_CONTENTS_EXPLANATON_DIR
+        file_path = os.path.join(explanation_dir, f"{updatedExplanation.title}.txt")
+        with open(file_path, 'w') as file:
+            file.write(updatedExplanation.text)
         updatedExplanation.commit_explanation_changes()
         return render(request, 'explanation/index.html')
 
@@ -113,4 +125,15 @@ class DeleteView(View):
     def delete(self, request, title):
         deleteExplanation = Explanation.objects.get(title=title)
         deleteExplanation.delete()
-        return render(request, 'explanation/index.html')
+        explanation_dir = settings.EMWIKI_CONTENTS_EXPLANATON_DIR
+        file_path = os.path.join(explanation_dir, f"{deleteExplanation.title}.txt")
+        try:
+            os.remove(file_path)
+            print(f"ファイル {file_path} を削除しました。")
+            return render(request, 'explanation/index.html')
+        except FileNotFoundError:
+            print(f"ファイル {file_path} が見つかりませんでした。")
+        except Exception as e:
+            print(f"ファイル {file_path} の削除中にエラーが発生しました: {e}")
+
+        # return render(request, 'explanation/index.html')
