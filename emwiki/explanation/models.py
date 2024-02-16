@@ -1,6 +1,7 @@
+import os
+
 from django.db import models
 from django.conf import settings
-# import subprocess
 from django.utils import timezone
 
 
@@ -10,6 +11,7 @@ class Explanation(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(null=True, blank=True)
+    explanation_dir = settings.EMWIKI_CONTENTS_EXPLANATON_DIR
 
     def __str__(self):
         return self.title, self.author, self.created_at, self.updated_at
@@ -18,16 +20,20 @@ class Explanation(models.Model):
         self.updated_at = timezone.now()
         return super().save(*args, **kwargs)
 
+    def get_explanationfile_path(self):
+        return os.path.join(self.explanation_dir, f'{self.title}.txt')
+
+    # def create_text_file(directory, file_name, text):
+    #     file_path = os.path.join(directory, file_name)
+    #     with open(file_path, 'w') as file:
+    #         file.write(text)
+
     def commit_explanation_creates(self):
         commit_message = f'Create {self.text}\n {self.author}\n'
-        settings.EXPLANATION_REPO.git.add('models.py')
-        settings.EXPLANATION_REPO.git.commit('--allow-empty', '-m', commit_message)
-        # subprocess.call(['git', 'add', 'explanation/models.py'])
-        # subprocess.call(['git', 'commit', '-m', commit_message])
+        settings.EMWIKI_CONTENTS_EXPLANATION_REPO.git.add(self.get_explanationfile_path())
+        settings.EMWIKI_CONTENTS_EXPLANATION_REPO.index.commit(commit_message)
 
     def commit_explanation_changes(self):
         commit_message = f'Update {self.text}\n {self.author}\n'
-        settings.EXPLANATION_REPO.git.add('models.py')
-        settings.EXPLANATION_REPO.git.commit('--allow-empty', '-m', commit_message)
-        # subprocess.call(['git', 'add', 'explanation/models.py'])
-        # subprocess.call(['git', 'commit', '-m', commit_message])
+        settings.EMWIKI_CONTENTS_EXPLANATION_REPO.git.add(self.get_explanationfile_path())
+        settings.EMWIKI_CONTENTS_EXPLANATION_REPO.index.commit(commit_message)
