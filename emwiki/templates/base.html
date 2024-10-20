@@ -52,7 +52,8 @@
         <v-btn href="{% url 'article:index' 'abcmiz_0' %}" text>Article</v-btn>
         <v-btn href="{% url 'symbol:index' '0' %}" text>Symbol</v-btn>
         <v-btn href="{% url 'article:index' 'abcmiz_0' %}?target=theorem" text>Theorem</v-btn>
-        <v-btn href="{% url 'graph:index' %}" text>Graph</v-btn>
+        <v-btn href="https://b047ff.github.io/emgraph2/compound_graph/hierarchical_graph_named.html" text
+          target="_blank" rel="noopener noreferrer">Graph</v-btn>
         {% if user.is_authenticated %}
         <v-btn href="{% url 'settings:index' %}" text>Settings</v-btn>
         {% endif %}
